@@ -51,7 +51,7 @@ try {
     $nl   = [_Nc]::LoadLibrary("ntdll.dll")
     $efn  = [string]::Join('',[char[]]@(69,116,119,69,118,101,110,116,87,114,105,116,101))
     $eptr = [_Nc]::GetProcAddress($nl, $efn)
-    $op   = 0u
+    $op   = [uint32]0
     [_Nc]::VirtualProtect($eptr, 4, 0x40, [ref]$op) | Out-Null
     [System.Runtime.InteropServices.Marshal]::Copy([byte[]](0x33,0xC0,0xC3,0x90), 0, $eptr, 4)
     [_Nc]::VirtualProtect($eptr, 4, $op, [ref]$op) | Out-Null
@@ -98,7 +98,7 @@ if ($g5) {
     $h5  = [_Nc]::OpenProcess(0x1F0FFF,$false,$g5.Id)
     $b5  = [Int64]$g5.MainModule.BaseAddress
     $s5  = $g5.MainModule.ModuleMemorySize
-    $op5 = 0u
+    $op5 = [uint32]0
 
     # Patch 1 — Infinite Ammo Clip
     $p1 = [byte[]](0x75,0x00,0x85,0xFF,0x74,0x00,0x48,0x8B,0xCB,0xFF,0x90)
